@@ -30,4 +30,4 @@ Para ejecutar el archivo de instalación dentro de la consola de comandos ejecut
 
 * php Installer.php host dbas user pass adminTable adminUserField adminPassField
 
-Los parametrode pasados al installador debe de ser en el orden mostrado. Una vex finalizado el proceso de modelado, la carpeta CorePHP\Models contendra las clases abstraidas de la base de datos.
+Los parametrode pasados al installador debe de ser en el orden mostrado. Una vez finalizado el proceso de modelado, la carpeta CorePHP\Models contendra las clases abstraidas de la base de datos.
