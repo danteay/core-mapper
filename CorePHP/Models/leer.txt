@@ -1,0 +1,2 @@
+Esta carpeta es necesaria para el funcionamiento de CorePHP
+no la borres ni remuevas de la estrcutura de carpetas.

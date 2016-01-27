@@ -1,0 +1,156 @@
+<?php
+
+namespace CorePHP\Models;
+
+require_once __DIR__."/../../CorePHP/Libraries/autoload.php";
+
+use CorePHP\Core\Libraries\ModelDefinition;
+:admin-use-class:
+use CorePHP\Core\Conexion;
+use CorePHP\Libraries\QueryMap;
+
+class :class-name: extends ModelDefinition :admin-implements:{
+
+    :model-fields:
+
+    public function __construct(&$conx = null){
+        :init-model-fields:
+
+        $this->initConexion($conx);
+    }
+
+    private function initConexion(&$conx){
+        if(empty($conx)){
+            try{
+                $this->conx = new Conexion();
+            }catch(\Exception $e){
+                throw new \Exception($e);
+            }
+
+        }else{
+            $this->conx = $conx;
+        }
+
+        $this->query = new QueryMap();
+        $this->query->:table:Query();
+    }
+
+    public function getItem(int $id){
+        $query = $this->query->queryList[':table:']['getItem'];
+        $data = array(
+            "[[id]]" => $id
+        );
+
+        $this->conx->initializeQuery($query, $data);
+        try{
+            $result = $this->conx->getRequest();
+        }catch(\Exception $e){
+            throw new \Exception($e);
+        }
+
+        if($result = $result->fetch_assoc()){
+            foreach($result as $key => $value){
+                $this->$key = $value;
+            }
+
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    :admin-functions:
+
+    public function getAllItems(): \mysqli_result{
+        $query = $this->query->queryList[':table:']['getAllItems'];
+
+        $this->conx->initializeQuery($query);
+        try{
+            $result = $this->conx->getRequest();
+            return $result;
+        }catch(\Exception $e){
+            throw new \Exception($e);
+        }
+    }
+
+    public function insertItem(array $data){
+        extract($data);
+
+        if(:insert-model-validate:){
+            $query = $this->query->queryList[':table:']['insertItem'];
+            $insert = array(
+                :insert-model-data:
+            );
+
+            $this->conx->initializeQuery($query, $insert);
+            try{
+                $this->conx->setRequest();
+            }catch(\Exception $e){
+                throw new \Exception($e);
+            }
+        }else{
+            throw new \Exception("Los datos no son validos.");
+        }
+    }
+
+    public function updateItem(int $id, array $data){
+        $query = $this->query->queryList[':table:']['updateItem'];
+        $replace = "";
+
+        if(empty($data)){
+            throw new \Exception("Informacion de actualizacion invalida.");
+        }
+
+        foreach($data as $key => $value){
+            if($replace == ""){
+                $replace .= is_numeric($value) ? "$key = $value" : "$key = '$value'";
+            }else{
+                $replace .= is_numeric($value) ? ", $key = $value" : ", $key = '$value'";
+            }
+        }
+
+        $query = str_replace("[[data]]",$replace,$query);
+        $update = array(
+            "[[id]]" => $id
+        );
+
+        $this->conx->initializeQuery($query, $update);
+
+        try{
+            $this->conx->setRequest();
+        }catch(\Exception $e){
+            throw new \Exception($e);
+        }
+    }
+
+    public function deleteItem(int $id){
+        $query = $this->query->queryList[':table:']['deleteItem'];
+        $data = array(
+            "[[id]]" => $id
+        );
+
+        $this->conx->initializeQuery($query, $data);
+
+        try{
+            $this->conx->setRequest();
+        }catch(\Exception $e){
+            throw new \Exception($e);
+        }
+    }
+
+    public function getLastItem(): int {
+        $query = $this->query->queryList[':table:']['getLastItem'];
+
+        $this->conx->initializeQuery($query);
+
+        try{
+            $result = $this->conx->getRequest();
+            $result = $result->fetch_object();
+
+            return $result->last;
+        }catch(\Exception $e){
+            throw new \Exception($e);
+        }
+    }
+
+}

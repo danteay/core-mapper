@@ -1,0 +1,14 @@
+    public function :table:Query(){
+        $this->queryList[':table:'] = array(
+            "getItem" => "SELECT * FROM :table: WHERE :primary: = [[id]]",
+            "getAllItems" => "SELECT * FROM :table:",
+            "getItemByUser" => "SELECT * FROM :table: WHERE :user: = '[[user]]'",
+            "getItemByPassword" => "SELECT * FROM :table: WHERE :passwd: = '[[password]]'",
+            "insertItem" => "INSERT INTO :table: (:insert-fields:) VALUES (:insert-data:)",
+            "updateItem" => "UPDATE :table: SET [[data]] WHERE :primary: = [[id]]",
+            "deleteItem" => "DELETE FROM :table: WHERE :primary: = [[id]]",
+            "getLastItem" => "SELECT MAX(:primary:) AS 'last' FROM :table:"
+        );
+    }
+
+    /*add-function-model*/

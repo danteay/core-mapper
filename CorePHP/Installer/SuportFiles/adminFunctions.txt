@@ -1,0 +1,47 @@
+    public function getItemByUser(string $user): bool{
+        $query = $this->query->queryList[':table:']['getItemByUser'];
+        $data = array(
+            "[[user]]" => $user
+        );
+
+        $this->conx->initializeQuery($query, $data);
+        try{
+            $result = $this->conx->getRequest();
+        }catch(\Exception $e){
+            throw new \Exception($e);
+        }
+
+        if($result = $result->fetch_assoc()){
+            foreach($result as $key => $value){
+                $this->$key = $value;
+            }
+
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function getItemByPassword(string $pass): bool{
+        $query = $this->query->queryList[':table:']['getItemByPassword'];
+        $data = array(
+            "[[password]]" => $pass
+        );
+
+        $this->conx->initializeQuery($query, $data);
+        try{
+            $result = $this->conx->getRequest();
+        }catch(\Exception $e){
+            throw new \Exception($e);
+        }
+
+        if($result = $result->fetch_assoc()){
+            foreach($result as $key => $value){
+                $this->$key = $value;
+            }
+
+            return true;
+        }else{
+            return false;
+        }
+    }
