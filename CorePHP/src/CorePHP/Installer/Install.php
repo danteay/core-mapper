@@ -2,7 +2,15 @@
 
 namespace CorePHP\Installer;
 
-require_once __DIR__."/../Libraries/autoload.php";
+/**
+ * Descomentar la linea siguiente si este modulo no fue incluido por composer
+ */
+#require_once __DIR__."/../Libraries/autoload.php";
+
+/**
+ * Descomentar la linea siguiente si este modulo fue incluido por composer
+ */
+#require_once __DIR__."/../../../autoload.php";
 
 use CorePHP\Exceptions\CorePHPBaseException;
 use CorePHP\Installer\Models\ModelCreator;
@@ -27,7 +35,8 @@ class Install
         }
     }
 
-    public function help(){
+    public function help()
+    {
         echo "### Ayuda de instalacion\n\n";
         echo "La instalacion de este sistema require el paso de parametros
 de una manera especifica en el siguiente orden:\n

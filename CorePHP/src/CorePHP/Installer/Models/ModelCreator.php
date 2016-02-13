@@ -2,7 +2,10 @@
 
 namespace CorePHP\Installer\Models;
 
-require_once __DIR__."/../../Libraries/autoload.php";
+/**
+ * Descomentar la linea siguiente si este modulo no fue incluido por composer
+ */
+#require_once __DIR__."/../../Libraries/autoload.php";
 
 use CorePHP\Installer\Models\Mapper;
 use CorePHP\Installer\Models\Validations;
@@ -135,7 +138,7 @@ class ModelCreator extends Mapper
      * @return string
      * Creacion de las variables de clase de los modelos
      */
-    private function createModelFields(array $fields): string
+    private function createModelFields(array $fields)
     {
         $fieldString = "";
         $flag = true;
@@ -158,7 +161,7 @@ class ModelCreator extends Mapper
      * @return string
      * Creacion de las sentencias de inicializacion para las variable de clase
      */
-    private function createInitModelFields(array $fields): string
+    private function createInitModelFields(array $fields)
     {
         $initFieldsString = "";
         $flag = true;
@@ -181,7 +184,7 @@ class ModelCreator extends Mapper
      * @return string
      * Validaciones de campos para la funcion insertItem de los modelos
      */
-    private function createInsertModelValidates(array $fields): string
+    private function createInsertModelValidates(array $fields)
     {
         $validate = "";
         $flag = true;
@@ -226,7 +229,7 @@ class ModelCreator extends Mapper
      * @return string
      * Generacion de las llaves de datos en la funcion insertItem de los modelos
      */
-    private function createInsertModelData(array $fields): string
+    private function createInsertModelData(array $fields)
     {
         $validate = "";
         $flag = true;
@@ -290,7 +293,7 @@ class ModelCreator extends Mapper
      * @return string
      * Crea los campos de insercion para los querys insert de cada modelo
      */
-    private function createInsertQueryFields(array $fields): string
+    private function createInsertQueryFields(array $fields)
     {
         $inserts = "";
         $flag = true;
@@ -321,7 +324,7 @@ class ModelCreator extends Mapper
      * @return string
      * Genera las llaves de reemplazo para la informacion que se agregara en los querys insert de cada modelo
      */
-    private function createInsertQueryData(array $fields): string
+    private function createInsertQueryData(array $fields)
     {
         $data = "";
         $flag = true;

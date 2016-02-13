@@ -1,4 +1,5 @@
-    public function :table:Query(){
+    public function :table:Query()
+    {
         $this->queryList[':table:'] = array(
             "getItem" => "SELECT * FROM :table: WHERE :primary: = [[id]]",
             "getAllItems" => "SELECT * FROM :table:",

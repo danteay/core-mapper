@@ -9,7 +9,7 @@ interface AdminDefinition {
      * @return bool
      * Busca un elemento basado en el usuario
      */
-    public function getItemByUser(string $user) : bool;
+    public function getItemByUser(string $user);
 
     /**
      * @param $pass
@@ -17,6 +17,6 @@ interface AdminDefinition {
      * Busca un elemento basado en el password, debe de estar declarado como unico en la base de datos
      * de lo contrario podria generar busquedas equibocadas.
      */
-    public function getItemByPassword(string $pass) : bool ;
+    public function getItemByPassword(string $pass);
 
 }

@@ -26,7 +26,7 @@ class DirectoryUtilsExeption extends \Exception
      * @return string
      * Impresion personalizada del objeto
      */
-    public function __toString() : string
+    public function __toString()
     {
         return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
     }

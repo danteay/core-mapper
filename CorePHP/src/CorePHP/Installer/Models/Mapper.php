@@ -3,7 +3,10 @@
 
 namespace CorePHP\Installer\Models;
 
-require_once __DIR__."/../../Libraries/autoload.php";
+/**
+ * Descomentar la linea siguiente si este modulo no fue incluido por composer
+ */
+#require_once __DIR__."/../../Libraries/autoload.php";
 
 use CorePHP\Installer\Models\Constants;
 
@@ -46,7 +49,7 @@ abstract class Mapper extends Constants
      * @throws \Exception
      * Regresa el listado de tablas en la base de datos para el mapeo
      */
-    public function getListTables(): array
+    public function getListTables()
     {
         $tableList = array();
         $tables = $this->conx->query("SHOW TABLES FROM {$this->dbas}");
@@ -73,7 +76,7 @@ abstract class Mapper extends Constants
      * @throws \Exception
      * Regresa un arreglo con el detalle de los campos de una tabla espesificada
      */
-    public function getListFields(string $table): array
+    public function getListFields(string $table)
     {
         $fieldList = array();
         $fields = $this->conx->query("SHOW COLUMNS FROM {$this->dbas}.$table");
@@ -90,7 +93,3 @@ abstract class Mapper extends Constants
     }
 
 }
-
-#$obj = new Mapper("localhost","farmsystem","root","root");
-#print_r($obj->getListTables());
-#print_r($obj->getListFields('marcos'));

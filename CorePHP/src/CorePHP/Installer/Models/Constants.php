@@ -5,7 +5,7 @@ namespace CorePHP\Installer\Models;
 
 abstract class Constants
 {
-    /*
+    /**
      * Direcciones constantes de archivos de modelado
      */
     CONST MODEL_DEFINITION = __DIR__."/../SuportFiles/modelDefinition.txt";
@@ -15,13 +15,13 @@ abstract class Constants
     CONST QUERYMAP_CLASS = __DIR__."/../../Libraries/QueryMap.php";
     CONST CONEXION_CLASS = __DIR__."/../../Core/Conexion.php";
 
-    /*
+    /**
      * Constantes de reeplazo de interfaces, llamdas a clases y clases abstractas opcionles
      */
     CONST IMPLEMENTS_ADMIN = "implements AdminDefinition";
     CONST USE_ADMIN = "use CorePHP\\Core\\Libraries\\AdminDefinition;";
 
-    /*
+    /**
      * Constantes de llaves de reemplazo
      */
     CONST TABLE_NAME = ":table:";

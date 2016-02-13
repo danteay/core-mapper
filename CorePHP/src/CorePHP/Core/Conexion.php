@@ -2,7 +2,10 @@
 
 namespace CorePHP\Core;
 
-require_once __DIR__."/../Libraries/autoload.php";
+/**
+ * Descomentar la linea siguiente si este modulo no fue incluido por composer
+ */
+#require_once __DIR__."/../Libraries/autoload.php";
 
 use CorePHP\Exceptions\ConexionException;
 
@@ -64,7 +67,7 @@ class Conexion
      * @return string
      * Regresa el query actual
      */
-    public function getQuery() : string
+    public function getQuery()
     {
         return $this->query;
     }
@@ -93,7 +96,7 @@ class Conexion
      * @throws ConexionException
      * Ejecuta un query que no retorna valores mysql_result
      */
-    public function setRequest() : bool
+    public function setRequest()
     {
         $this->conx->query($this->query);
 

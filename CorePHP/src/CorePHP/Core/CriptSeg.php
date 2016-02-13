@@ -14,7 +14,7 @@ class CriptSeg{
      * @return string
      * Encripta una cadena de texto en formato MD5.
      */
-	public function crypStringMD5(string $cadena) : string
+	public function crypStringMD5(string $cadena)
 	{
 		return hash('md5',$cadena);
 	}

@@ -3,7 +3,7 @@
 namespace CorePHP\Exceptions;
 
 
-class ConexionException extends \Exception
+class CorePHPBaseException extends \Exception
 {
     /**
      * DirectoryUtilsExeptions constructor.
@@ -20,7 +20,7 @@ class ConexionException extends \Exception
      * @return string
      * Impresion personalizada del objeto
      */
-    public function __toString() : string
+    public function __toString()
     {
         return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
     }

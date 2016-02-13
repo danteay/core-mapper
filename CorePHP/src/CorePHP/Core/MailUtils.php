@@ -117,7 +117,7 @@ class MailUtils
     /**
      * Limpia y separa el mensaje en renglones de 100 caracteres agregando un salto de line entre ellos
      */
-	public function CleanupMessage()
+	public function cleanupMessage()
     {
 		$this->message = wordwrap($this->message, 100, "\r\n");
 	}
@@ -129,7 +129,7 @@ class MailUtils
 	 * Procesa un Template para crear el cuerpo del mensaje
 	 * Requiere que antes se inicialize la variable $template_keys
 	 */
-	public function FromTemplate($template) : bool
+	public function fromTemplate($template)
     {
 		if (file_exists($template)) {
 			$gettemplate = file_get_contents($template);
@@ -150,7 +150,7 @@ class MailUtils
 	 * @return bool
 	 * Envia un email en formato de texto plano
 	 */
-	private function SendPlain() : bool
+	private function sendPlain()
     {
 		$headers = 'From: '.$this->from."\r\n".
 				   'Reply-to: '.$this->reply_to."\r\n".
@@ -165,7 +165,7 @@ class MailUtils
 	 * @return bool
 	 * Envia un email en formato HTML
 	 */
-	private function SendHTML() : bool
+	private function sendHTML()
     {
 		$headers = 'From: '.$this->from."\r\n".
 				   'Reply-to: '.$this->reply_to."\r\n".
@@ -181,7 +181,7 @@ class MailUtils
 	 * @return bool
 	 * Ejecuta el envio de email dependiendo de el tipo de mensaje a enviar
 	 */
-	public function SendEmail() : bool
+	public function sendEmail()
     {
 		if ($this->is_html) {
 			return $this->SendHTML();
@@ -196,7 +196,7 @@ class MailUtils
 	 * @return bool
 	 * Comprueba la valides de un Email
 	 */
-	public function ValidarMail(string $email) : bool
+	public function validarMail(string $email)
     {
 		$mail_correcto = 0;
 

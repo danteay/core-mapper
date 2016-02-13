@@ -2,7 +2,10 @@
 
 namespace CorePHP\Core;
 
-require_once __DIR__."/../Libraries/autoload.php";
+/**
+ * Descomentar la linea siguiente si este modulo no fue incluido por composer
+ */
+#require_once __DIR__."/../Libraries/autoload.php";
 
 use CorePHP\Exceptions\DirectoryUtilsExeption;
 
@@ -25,7 +28,7 @@ class DirectoryUtils{
 	 * @return int
 	 * Regresa el numero total de elementos contenidos en un directorio
 	 */
-	public function countElements(string $ruta) : int
+	public function countElements(string $ruta)
     {
 		$directorio = opendir($ruta);
 		$cont = 0;
@@ -46,7 +49,7 @@ class DirectoryUtils{
      * @throws DirectoryUtilsExeption
 	 * Genera el listado con los nombres de los archivos contenidos en un directorio
 	 */
-	public function listFiles(string $ruta, string $patern = null) : array
+	public function listFiles(string $ruta, string $patern = null)
     {
         if(!is_dir($ruta)){
             throw new DirectoryUtilsExeption($ruta,"La ruta no es un directorio valido.");
@@ -125,7 +128,8 @@ class DirectoryUtils{
      * @throws DirectoryUtilsExeption
      * Copia el contenido de una carpeta y su contenido en una ruta especificada
      */
-    public function fullCopy(string $origen, string $destino) {
+    public function fullCopy(string $origen, string $destino)
+	{
         if ( is_dir( $origen ) ) {
             @mkdir( $destino );
             $d = dir( $origen );

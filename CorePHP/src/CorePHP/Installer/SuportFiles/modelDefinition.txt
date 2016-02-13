@@ -2,7 +2,10 @@
 
 namespace CorePHP\Models;
 
-require_once __DIR__."/../../CorePHP/Libraries/autoload.php";
+/**
+ * Descomentar la linea siguiente si este modulo no fue incluido por composer
+ */
+#require_once __DIR__."/../../CorePHP/Libraries/autoload.php";
 
 use CorePHP\Core\Libraries\ModelDefinition;
 :admin-use-class:
@@ -13,13 +16,15 @@ class :class-name: extends ModelDefinition :admin-implements:{
 
     :model-fields:
 
-    public function __construct(&$conx = null){
+    public function __construct(&$conx = null)
+    {
         :init-model-fields:
 
         $this->initConexion($conx);
     }
 
-    private function initConexion(&$conx){
+    private function initConexion(&$conx)
+    {
         if(empty($conx)){
             try{
                 $this->conx = new Conexion();
@@ -35,7 +40,8 @@ class :class-name: extends ModelDefinition :admin-implements:{
         $this->query->:table:Query();
     }
 
-    public function getItem(int $id){
+    public function getItem(int $id)
+    {
         $query = $this->query->queryList[':table:']['getItem'];
         $data = array(
             "[[id]]" => $id
@@ -61,7 +67,8 @@ class :class-name: extends ModelDefinition :admin-implements:{
 
     :admin-functions:
 
-    public function getAllItems(): \mysqli_result{
+    public function getAllItems()
+    {
         $query = $this->query->queryList[':table:']['getAllItems'];
 
         $this->conx->initializeQuery($query);
@@ -73,7 +80,8 @@ class :class-name: extends ModelDefinition :admin-implements:{
         }
     }
 
-    public function insertItem(array $data){
+    public function insertItem(array $data)
+    {
         extract($data);
 
         if(:insert-model-validate:){
@@ -93,7 +101,8 @@ class :class-name: extends ModelDefinition :admin-implements:{
         }
     }
 
-    public function updateItem(int $id, array $data){
+    public function updateItem(int $id, array $data)
+    {
         $query = $this->query->queryList[':table:']['updateItem'];
         $replace = "";
 
@@ -123,7 +132,8 @@ class :class-name: extends ModelDefinition :admin-implements:{
         }
     }
 
-    public function deleteItem(int $id){
+    public function deleteItem(int $id)
+    {
         $query = $this->query->queryList[':table:']['deleteItem'];
         $data = array(
             "[[id]]" => $id
@@ -138,7 +148,8 @@ class :class-name: extends ModelDefinition :admin-implements:{
         }
     }
 
-    public function getLastItem(): int {
+    public function getLastItem()
+    {
         $query = $this->query->queryList[':table:']['getLastItem'];
 
         $this->conx->initializeQuery($query);

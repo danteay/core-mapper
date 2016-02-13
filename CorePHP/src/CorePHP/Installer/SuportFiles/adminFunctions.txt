@@ -1,4 +1,5 @@
-    public function getItemByUser(string $user): bool{
+    public function getItemByUser(string $user)
+    {
         $query = $this->query->queryList[':table:']['getItemByUser'];
         $data = array(
             "[[user]]" => $user
@@ -22,7 +23,8 @@
         }
     }
 
-    public function getItemByPassword(string $pass): bool{
+    public function getItemByPassword(string $pass)
+    {
         $query = $this->query->queryList[':table:']['getItemByPassword'];
         $data = array(
             "[[password]]" => $pass

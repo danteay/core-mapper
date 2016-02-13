@@ -22,13 +22,13 @@ abstract class ModelDefinition{
      * @return bool
      * Busca y carga un elemento basado en su ID
      */
-    abstract public function getItem(int $id) : bool;
+    abstract public function getItem(int $id);
 
     /**
      * @return \mysqli_result
      * Carga la totalidad de elemtnos y los devuelve en una varia \mysqli_result
      */
-    abstract public function getAllItems() : \mysqli_result;
+    abstract public function getAllItems();
 
     /**
      * @param array $data
@@ -56,6 +56,6 @@ abstract class ModelDefinition{
      * @return int
      * Retorna el maximo identificador disponible en la tabla del modelo
      */
-    abstract public function getLastItem() : int;
+    abstract public function getLastItem();
 
 }
