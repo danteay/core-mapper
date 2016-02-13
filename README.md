@@ -2,10 +2,15 @@
 CorePHPMapper es una serie de scripts que te permiten abstraer de una base de datos, sus tablas y campos, trasformandolas en Clases PHP para su facil manipulacion mediante el patron DAO.
 
 #Datos de compativilidad
-* PHP7
-* MySQL >= 5.5
+* PHP >= 5.6
+* MySQL >= 5.1
 
 #Instalación
+
+La manera recomendada para instalar este paquete es mediante composer con el siguiente comando
+
+* composer require corephp/mappercore
+
 Para poder ejecutar el mapeo de CorePHPMapper, debe de asegurarse de que puede ejecutar PHP en la consola de comandos desde cualquier punto, para ello abriremos una terminal de sistema y ejecutaremos el comando:
 
 * php -v
