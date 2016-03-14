@@ -2,8 +2,7 @@
 
 namespace CorePHP\Installer;
 
-#require_once __DIR__ . "/../Libraries/autoload.php";
-
+require_once __DIR__ . "/../../../autoload.php";
 
 use CorePHP\Exceptions\CorePHPBaseException;
 use CorePHP\Installer\Models\ModelCreator;
