@@ -2,11 +2,6 @@
 
 namespace CorePHP\Models;
 
-/**
- * Descomentar la linea siguiente si este modulo no fue incluido por composer
- */
-#require_once __DIR__."/../../CorePHP/Libraries/autoload.php";
-
 use CorePHP\Core\Libraries\ModelDefinition;
 :admin-use-class:
 use CorePHP\Core\Conexion;
@@ -40,7 +35,7 @@ class :class-name: extends ModelDefinition :admin-implements:{
         $this->query->:table:Query();
     }
 
-    public function getItem(int $id)
+    public function getItem($id)
     {
         $query = $this->query->queryList[':table:']['getItem'];
         $data = array(
@@ -101,7 +96,7 @@ class :class-name: extends ModelDefinition :admin-implements:{
         }
     }
 
-    public function updateItem(int $id, array $data)
+    public function updateItem($id, array $data)
     {
         $query = $this->query->queryList[':table:']['updateItem'];
         $replace = "";
@@ -132,7 +127,7 @@ class :class-name: extends ModelDefinition :admin-implements:{
         }
     }
 
-    public function deleteItem(int $id)
+    public function deleteItem($id)
     {
         $query = $this->query->queryList[':table:']['deleteItem'];
         $data = array(

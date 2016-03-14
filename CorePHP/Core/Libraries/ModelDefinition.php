@@ -22,7 +22,7 @@ abstract class ModelDefinition{
      * @return bool
      * Busca y carga un elemento basado en su ID
      */
-    abstract public function getItem(int $id);
+    abstract public function getItem($id);
 
     /**
      * @return \mysqli_result
@@ -43,14 +43,14 @@ abstract class ModelDefinition{
      * @return mixed
      * Actualiza la informacion y campos especificados por $data en el elemnto con identificador $id
      */
-    abstract public function updateItem(int $id, array $data);
+    abstract public function updateItem($id, array $data);
 
     /**
      * @param int $id
      * @return mixed
      * Elimina un elemento con identificador $id de la tabla especificada en el modelo
      */
-    abstract public function deleteItem(int $id);
+    abstract public function deleteItem($id);
 
     /**
      * @return int

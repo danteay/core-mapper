@@ -8,12 +8,12 @@ abstract class Constants
     /**
      * Direcciones constantes de archivos de modelado
      */
-    CONST MODEL_DEFINITION = __DIR__."/../SuportFiles/modelDefinition.txt";
-    CONST ADMIN_QUERY_FUNCTION = __DIR__."/../SuportFiles/adminQueryFunction.txt";
+    CONST MODEL_DEFINITION = __DIR__ . "/../SuportFiles/modelDefinition.txt";
+    CONST ADMIN_QUERY_FUNCTION = __DIR__ . "/../SuportFiles/adminQueryFunction.txt";
     CONST MODEL_QUERY_FUNCTION = __DIR__ . "/../SuportFiles/modelQueryFunction.txt";
-    CONST ADMIN_FUNCTIONS = __DIR__."/../SuportFiles/adminFunctions.txt";
-    CONST QUERYMAP_CLASS = __DIR__."/../../Libraries/QueryMap.php";
-    CONST CONEXION_CLASS = __DIR__."/../../Core/Conexion.php";
+    CONST ADMIN_FUNCTIONS = __DIR__ . "/../SuportFiles/adminFunctions.txt";
+    CONST QUERYMAP_CLASS = __DIR__ . "/../../Libraries/QueryMap.php";
+    CONST CONEXION_CLASS = __DIR__ . "/../../Core/Conexion.php";
 
     /**
      * Constantes de reeplazo de interfaces, llamdas a clases y clases abstractas opcionles
@@ -41,6 +41,10 @@ abstract class Constants
     CONST INSERT_QUERY_FIELDS = ":insert-fields:";
     CONST INSERT_QUERY_DATA = ":insert-data:";
 
+
+    /**
+     * Constants for connection replace
+     */
     CONST HOST_KEY = ":host:";
     CONST DBAS_KEY = ":dbas:";
     CONST USER_KEY = ":user:";

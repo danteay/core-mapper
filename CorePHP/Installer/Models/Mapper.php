@@ -3,10 +3,6 @@
 
 namespace CorePHP\Installer\Models;
 
-/**
- * Descomentar la linea siguiente si este modulo no fue incluido por composer
- */
-#require_once __DIR__."/../../Libraries/autoload.php";
 
 use CorePHP\Installer\Models\Constants;
 
@@ -34,7 +30,7 @@ abstract class Mapper extends Constants
      * @param String $pass
      * @throws \Exception
      */
-    public function __construct(string $host, string $dbas, string $user, String $pass)
+    public function __construct($host, $dbas, $user, $pass)
     {
         $this->conx = new \mysqli($host,$user,$pass,$dbas);
         $this->dbas = $dbas;
@@ -76,7 +72,7 @@ abstract class Mapper extends Constants
      * @throws \Exception
      * Regresa un arreglo con el detalle de los campos de una tabla espesificada
      */
-    public function getListFields(string $table)
+    public function getListFields($table)
     {
         $fieldList = array();
         $fields = $this->conx->query("SHOW COLUMNS FROM {$this->dbas}.$table");

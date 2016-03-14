@@ -16,7 +16,7 @@ class DirectoryUtilsExeption extends \Exception
      * @param int $code
      * @param \Exception|null $previous
      */
-    public function __construct(string $rutaOrigen, string $message = null, $code = 0, \Exception $previous = null)
+    public function __construct($rutaOrigen, $message = null, $code = 0, \Exception $previous = null)
     {
         $this->finalMessage = $message . "\n<b>Ruta no encontrada: </b>" . $rutaOrigen;
         parent::__construct($this->finalMessage, $code, $previous);

@@ -2,10 +2,6 @@
 
 namespace CorePHP\Installer\Models;
 
-/**
- * Descomentar la linea siguiente si este modulo no fue incluido por composer
- */
-#require_once __DIR__."/../../Libraries/autoload.php";
 
 use CorePHP\Installer\Models\Mapper;
 use CorePHP\Installer\Models\Validations;
@@ -42,7 +38,7 @@ class ModelCreator extends Mapper
      * @param string|null $adminUserField
      * @param string|null $adminPassField
      */
-    public function __construct(string $host, string $dbas, string $user, string $pass, string $adminTable = null, string $adminUserField = null, string $adminPassField = null)
+    public function __construct($host, $dbas, $user, $pass, $adminTable = null, $adminUserField = null, $adminPassField = null)
     {
         parent::__construct($host,$dbas,$user,$pass);
         $this->adminTable = $adminTable;
@@ -73,7 +69,7 @@ class ModelCreator extends Mapper
      * @param string $pass
      * Inicializa los valores de conexion para la clase CorePHP\Core\Conexion
      */
-    private function conexionInitializer(string $host, string $dbas, string $user, string $pass)
+    private function conexionInitializer($host, $dbas, $user, $pass)
     {
         $conexionFile = file_get_contents(parent::CONEXION_CLASS);
 
@@ -92,7 +88,7 @@ class ModelCreator extends Mapper
      * @throws \Exception
      * Generacion de los Modelos con respecto a la configuracion de las tablas de la base de datos
      */
-    private function createModel(string $table)
+    private function createModel($table)
     {
         $modelFile = file_get_contents(parent::MODEL_DEFINITION);
         $fields = parent::getListFields($table);
@@ -105,7 +101,7 @@ class ModelCreator extends Mapper
         $modelFile = str_replace(parent::TABLE_NAME, $table, $modelFile);
         $modelFile = str_replace(parent::CLASS_NAME, ucfirst($table), $modelFile);
 
-        file_put_contents(__DIR__."/../../Models/".ucfirst($table).".php", $modelFile);
+        file_put_contents(__DIR__ . "/../../Models/" .ucfirst($table).".php", $modelFile);
 
         $this->createQueryFunctionModel($table, $fields);
     }
@@ -116,7 +112,7 @@ class ModelCreator extends Mapper
      * @param string $table
      * Validacion para implementar la interfaz AdminDefinition en un modelo
      */
-    private function validateAdminInterface(string &$model, string $table)
+    private function validateAdminInterface(&$model, $table)
     {
         if($table == $this->adminTable){
             $functionsAdmin = file_get_contents(parent::ADMIN_FUNCTIONS);
@@ -259,7 +255,7 @@ class ModelCreator extends Mapper
      * Creacion de la funcion especifica del modelo que cargara los querys para su funcionamiento.
      * Dicha funcion se agregara al archivo CorePHP\Libraries\QueryMap.php
      */
-    private function createQueryFunctionModel(string $table, array $fields)
+    private function createQueryFunctionModel($table, array $fields)
     {
         $queryMapFile = file_get_contents(parent::QUERYMAP_CLASS);
 

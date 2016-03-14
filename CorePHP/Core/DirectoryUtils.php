@@ -2,11 +2,6 @@
 
 namespace CorePHP\Core;
 
-/**
- * Descomentar la linea siguiente si este modulo no fue incluido por composer
- */
-#require_once __DIR__."/../Libraries/autoload.php";
-
 use CorePHP\Exceptions\DirectoryUtilsExeption;
 
 class DirectoryUtils{
@@ -15,7 +10,7 @@ class DirectoryUtils{
 	 * @param string $ruta
 	 * Crea un directorio en la ruta especificada
 	 */
-	public function makeDir(string $ruta)
+	public function makeDir($ruta)
 	{
 		if(!file_exists($ruta)){
 			mkdir($ruta);
@@ -28,7 +23,7 @@ class DirectoryUtils{
 	 * @return int
 	 * Regresa el numero total de elementos contenidos en un directorio
 	 */
-	public function countElements(string $ruta)
+	public function countElements($ruta)
     {
 		$directorio = opendir($ruta);
 		$cont = 0;
@@ -49,7 +44,7 @@ class DirectoryUtils{
      * @throws DirectoryUtilsExeption
 	 * Genera el listado con los nombres de los archivos contenidos en un directorio
 	 */
-	public function listFiles(string $ruta, string $patern = null)
+	public function listFiles($ruta, $patern = null)
     {
         if(!is_dir($ruta)){
             throw new DirectoryUtilsExeption($ruta,"La ruta no es un directorio valido.");
@@ -83,7 +78,7 @@ class DirectoryUtils{
      * @throws DirectoryUtilsExeption
 	 * Borra un archivo
 	 */
-	public function deleteFile(string $ruta)
+	public function deleteFile($ruta)
     {
 		if(file_exists($ruta)){
 			unlink($ruta);
@@ -98,7 +93,7 @@ class DirectoryUtils{
      * @throws DirectoryUtilsExeption
      * Borra un directorio especificado
      */
-	public function deleteDirectory(string $ruta)
+	public function deleteDirectory($ruta)
     {
 		if(is_dir($ruta)){
 			$lista = $this->listFiles($ruta);
@@ -128,7 +123,7 @@ class DirectoryUtils{
      * @throws DirectoryUtilsExeption
      * Copia el contenido de una carpeta y su contenido en una ruta especificada
      */
-    public function fullCopy(string $origen, string $destino)
+    public function fullCopy($origen, $destino)
 	{
         if ( is_dir( $origen ) ) {
             @mkdir( $destino );

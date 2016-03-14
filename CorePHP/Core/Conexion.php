@@ -2,10 +2,6 @@
 
 namespace CorePHP\Core;
 
-/**
- * Descomentar la linea siguiente si este modulo no fue incluido por composer
- */
-#require_once __DIR__."/../Libraries/autoload.php";
 
 use CorePHP\Exceptions\ConexionException;
 
@@ -78,7 +74,7 @@ class Conexion
      * @param array|null $replace
      * Carga un query ára ser procesado
      */
-    public function initializeQuery(string $query, array $replace = null)
+    public function initializeQuery($query, array $replace = null)
     {
         if($replace != null){
             foreach($replace as $key => $value){

@@ -196,7 +196,7 @@ class MailUtils
 	 * @return bool
 	 * Comprueba la valides de un Email
 	 */
-	public function validarMail(string $email)
+	public function validarMail($email)
     {
 		$mail_correcto = 0;
 

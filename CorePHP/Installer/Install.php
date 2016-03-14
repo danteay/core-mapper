@@ -2,15 +2,8 @@
 
 namespace CorePHP\Installer;
 
-/**
- * Descomentar la linea siguiente si este modulo no fue incluido por composer
- */
-#require_once __DIR__."/../Libraries/autoload.php";
+require_once __DIR__ . "/../Libraries/autoload.php";
 
-/**
- * Descomentar la linea siguiente si este modulo fue incluido por composer
- */
-#require_once __DIR__."/../../../autoload.php";
 
 use CorePHP\Exceptions\CorePHPBaseException;
 use CorePHP\Installer\Models\ModelCreator;
