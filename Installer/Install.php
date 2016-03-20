@@ -1,7 +1,7 @@
 <?php
 
 namespace CorePHP\Installer;
-
+  
 require_once __DIR__ . "/../../../autoload.php";
 
 use CorePHP\Exceptions\CorePHPBaseException;
@@ -24,7 +24,8 @@ class Install
             $this->shell_data = shell_exec("cd ".__DIR__."/../../../../ && composer dumpautoload -o");
         }else if(sizeof($this->data) == 7){
             new ModelCreator($this->data[0], $this->data[1], $this->data[2], $this->data[3],$this->data[4], $this->data[5], $this->data[6]);
-        }else{
+            $this->shell_data = shell_exec("cd ".__DIR__."/../../../../ && composer dumpautoload -o");
+	}else{
             throw new CorePHPBaseException("Parametros incompletos.");
         }
     }
