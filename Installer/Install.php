@@ -10,6 +10,7 @@ use CorePHP\Installer\Models\ModelCreator;
 class Install
 {
     private $data;
+    private $shell_data;
 
     public function __construct($data=null)
     {
@@ -20,6 +21,7 @@ class Install
     {
         if(sizeof($this->data) == 4){
             new ModelCreator($this->data[0], $this->data[1], $this->data[2], $this->data[3]);
+            $this->shell_data = shell_exec("cd ".__DIR__."/../../../../ && composer dumpautoload -o");
         }else if(sizeof($this->data) == 7){
             new ModelCreator($this->data[0], $this->data[1], $this->data[2], $this->data[3],$this->data[4], $this->data[5], $this->data[6]);
         }else{
@@ -37,6 +39,8 @@ Definiciones:
     host\t\tServidor donde se encuentra la base de datos.
 
     dbas\t\tNombre de la base de datos a mapear.
+    
+    user\t\tNom de usuario de la base de datos
 
     pass\t\tPassword de la base de datos.
 
