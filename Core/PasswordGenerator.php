@@ -1,10 +1,13 @@
 <?php
-
 /**
  * Este archivo no fue desarrollado propiamente para The Core.
  * Este archivo fue recopilado de una serie de plugins precreados, corregido e implementado.
  * Fuente: PHPClases.com
  */
+/**
+ * @author Eduardo Aguilar <dante.aguilar41@gmail.com>
+ */
+
 
 namespace CorePHP\Core;
 

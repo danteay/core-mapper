@@ -1,7 +1,9 @@
 <?php
+/**
+ * @author Eduardo Aguilar <dante.aguilar41@gmail.com>
+ */
 
 namespace CorePHP\Exceptions;
-
 
 class CorePHPBaseException extends \Exception
 {
