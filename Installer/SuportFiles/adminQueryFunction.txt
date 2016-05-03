@@ -11,7 +11,7 @@
             "insertItem" => "INSERT INTO :table: (:insert-fields:) VALUES (:insert-data:)",
             "updateItem" => "UPDATE :table: SET [[data]] WHERE :primary: = [[id]]",
             "deleteItem" => "DELETE FROM :table: WHERE :primary: = [[id]]",
-            "getLastItem" => "SELECT MAX(:primary:) AS 'last' FROM :table:"
+            "getLastItem" => "SELECT MAX(:primary:) AS 'last' FROM :table:" /*foreing-keys*/
         );
     }
 

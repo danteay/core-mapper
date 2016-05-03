@@ -1,0 +1,2 @@
+,
+            "getAllItemsBy:fukey:" => "SELECT * FROM :table: WHERE :fkey: = [[id]]"

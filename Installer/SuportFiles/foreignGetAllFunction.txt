@@ -1,0 +1,22 @@
+/**
+     * Carga la totalidad de elementos y los devuelve en una variable \mysqli_result
+     * @throws \Exception
+     * @return \mysqli_result
+     */
+    public function getAllItemsBy:fukey:($id)
+    {
+        $query = $this->query->queryList[':table:']['getAllItemsBy:fukey:'];
+        $insert = [
+            "[[id]]" => $id
+        ];
+
+        $this->conx->initializeQuery($query,$insert);
+        try{
+            $result = $this->conx->getRequest();
+            return $result;
+        }catch(\Exception $e){
+            throw new \Exception($e);
+        }
+    }
+
+

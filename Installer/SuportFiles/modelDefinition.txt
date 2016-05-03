@@ -93,6 +93,8 @@ class :class-name: extends ModelDefinition :admin-implements:{
         }
     }
 
+    :foreign-function:
+
     /**
      * Agrega un nuevo elemento a la tabla designada por el modelo
      * @param array $data

@@ -114,10 +114,34 @@ class ModelCreator extends Mapper
         $modelFile = str_replace(parent::INSERT_MODEL_DATA_KEY, $this->createInsertModelData($fields), $modelFile);
         $modelFile = str_replace(parent::TABLE_NAME, $table, $modelFile);
         $modelFile = str_replace(parent::CLASS_NAME, ucfirst($table), $modelFile);
+        $modelFile = str_replace(parent::FOREIGN_FUNCTION_KEY, $this->createForeignFunctions($table),$modelFile);
 
         file_put_contents(__DIR__ . "/../../Models/" .ucfirst($table).".php", $modelFile);
 
         $this->createQueryFunctionModel($table, $fields);
+    }
+
+    /**
+     * Crea los custom functions para busquedas por llave foranea
+     * @param $table
+     * @return string
+     * @throws \Exception
+     */
+    private function createForeignFunctions($table)
+    {
+        $keys = $this->getForeignKeys($table);
+        $function = file_get_contents(parent::FOREIGN_FUNCTION_PROTOTYPE);
+        
+        $final = "";
+        
+        foreach($keys as $value){
+            $aux = str_replace(parent::UPPER_FKEY,ucfirst($value[0]),$function);
+            $aux = str_replace(parent::TABLE_NAME,$table,$aux);
+
+            $final .= $aux;
+        }
+
+        return $final;
     }
 
 
@@ -246,12 +270,12 @@ class ModelCreator extends Mapper
                 $validate .= Validations::isPrimary($field[3]) ? (
                     Validations::isAutoIncrement($field[5]) ?
                         "" :
-                        "\"[[$field[0]]]\" => \$$field[0]"
-                ) : "\"[[$field[0]]]\" => \$$field[0]";
+                        "\"[[$field[0]]]\" => \$data['$field[0]']"
+                ) : "\"[[$field[0]]]\" => \$data['$field[0]']";
 
                 $flag = $validate != "" ? false : $flag;
             }else{
-                $validate .= ",\n\t\t\t\t\"[[$field[0]]]\" => \$$field[0]";
+                $validate .= ",\n\t\t\t\t\"[[$field[0]]]\" => \$data['$field[0]']";
             }
         }
 
@@ -272,7 +296,10 @@ class ModelCreator extends Mapper
             file_get_contents(parent::QUERYMAP_CLASS) : 
             file_get_contents(parent::START_QUERYMAP);
 
-        $queryFunction = $table == $this->adminTable ? file_get_contents(parent::ADMIN_QUERY_FUNCTION): file_get_contents(parent::MODEL_QUERY_FUNCTION);
+        $queryFunction = $table == $this->adminTable ? 
+            file_get_contents(parent::ADMIN_QUERY_FUNCTION): 
+            file_get_contents(parent::MODEL_QUERY_FUNCTION);
+        
         $queryFunction = str_replace(parent::TABLE_NAME, $table, $queryFunction);
         $queryFunction = str_replace(parent::PRIMARY_KEY, Validations::getPrimaryField($fields), $queryFunction);
         $queryFunction = str_replace(parent::INSERT_QUERY_FIELDS, $this->createInsertQueryFields($fields), $queryFunction);
@@ -292,8 +319,33 @@ class ModelCreator extends Mapper
             }
         }
 
+        $this->createForeignKeysQuerys($table,$queryFunction);
+
         $queryMapFile = str_replace(parent::QUERYMAP_FUNCTION_PLACE, $queryFunction, $queryMapFile);
         file_put_contents(parent::QUERYMAP_CLASS, $queryMapFile);
+    }
+
+    /**
+     * Crea los querys necesarios para consultar por llaves foraneas
+     * @param $table
+     * @throws \Exception
+     */
+    private function createForeignKeysQuerys($table, &$queryFunction)
+    {
+        $keys = $this->getForeignKeys($table);
+        $query = file_get_contents(parent::FOREIGN_QUERY);
+
+        $final = "";
+        
+        foreach ($keys as $value){
+            $aux = str_replace(parent::TABLE_NAME,$table,$query);
+            $aux = str_replace(parent::UPPER_FKEY,ucfirst($value[0]),$aux);
+            $aux = str_replace(parent::FKEY,$value[0],$aux);
+
+            $final .= $aux;
+        }
+
+        $queryFunction = str_replace(parent::FOREIGN_QUERY_KEYS,$final,$queryFunction);
     }
 
 

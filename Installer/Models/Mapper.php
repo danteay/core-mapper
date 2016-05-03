@@ -65,6 +65,33 @@ abstract class Mapper extends Constants
         }
     }
 
+    /**
+     * Obtiene los campos que son llaves Foraneas para crear sus custom functions
+     * @param $table
+     * @return array
+     * @throws \Exception
+     */
+    public function getForeignKeys($table)
+    {
+        $keys = array();
+        $fields = $this->conx->query("
+            SELECT b.column_name
+            FROM information_schema.table_constraints a
+                JOIN information_schema.key_column_usage b
+                    ON a.table_schema = b.table_schema AND a.constraint_name = b.constraint_name
+                    WHERE a.table_schema=database() AND a.constraint_type='FOREIGN KEY' AND b.table_name='$table'
+                    ORDER BY b.table_name, b.constraint_name");
+
+        if(empty($this->conx->error)){
+            while ($field = $fields->fetch_array(MYSQLI_NUM)){
+                $keys[] = $field;
+            }
+            return $keys;
+        }else{
+            throw new \Exception($this->conx->error);
+        }
+    }
+
 
     /**
      * @param string $table
