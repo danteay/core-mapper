@@ -1,3 +1,9 @@
+    /**
+     * Busca un elemento basado en el usuario
+     * @param string $user
+     * @throws \Exception
+     * @return bool
+     */
     public function getItemByUser($user)
     {
         $query = $this->query->queryList[':table:']['getItemByUser'];
@@ -23,6 +29,13 @@
         }
     }
 
+    /**
+     * Busca un elemento basado en el password, debe de estar declarado como unico en la base de datos
+     * de lo contrario podria generar busquedas equibocadas.
+     * @param string $pass
+     * @throws \Exception
+     * @return bool
+     */
     public function getItemByPassword($pass)
     {
         $query = $this->query->queryList[':table:']['getItemByPassword'];

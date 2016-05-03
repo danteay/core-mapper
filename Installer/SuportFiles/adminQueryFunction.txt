@@ -1,3 +1,6 @@
+    /**
+     * Arreglo de querys para el modelo administrador :table:
+     */
     public function :table:Query()
     {
         $this->queryList[':table:'] = array(

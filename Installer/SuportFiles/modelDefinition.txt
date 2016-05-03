@@ -5,6 +5,7 @@ namespace CorePHP\Models;
 use CorePHP\Core\Libraries\ModelDefinition;
 :admin-use-class:
 use CorePHP\Core\Conexion;
+use CorePHP\Core\Utils\Validations;
 use CorePHP\Libraries\QueryMap;
 
 class :class-name: extends ModelDefinition :admin-implements:{
@@ -18,7 +19,13 @@ class :class-name: extends ModelDefinition :admin-implements:{
         $this->initConexion($conx);
     }
 
-    private function initConexion(&$conx)
+    /**
+     * Inizializa la conexion del modelo
+     * @param Conexion $conx
+     * @throws \Exception
+     * @return mixed
+     */
+    protected function initConexion(&$conx)
     {
         if(empty($conx)){
             try{
@@ -35,6 +42,12 @@ class :class-name: extends ModelDefinition :admin-implements:{
         $this->query->:table:Query();
     }
 
+    /**
+     * Busca y carga un elemento basado en su ID
+     * @param int $id
+     * @throws \Exception
+     * @return bool
+     */
     public function getItem($id)
     {
         $query = $this->query->queryList[':table:']['getItem'];
@@ -62,6 +75,11 @@ class :class-name: extends ModelDefinition :admin-implements:{
 
     :admin-functions:
 
+    /**
+     * Carga la totalidad de elemtnos y los devuelve en una varia \mysqli_result
+     * @throws \Exception
+     * @return \mysqli_result
+     */
     public function getAllItems()
     {
         $query = $this->query->queryList[':table:']['getAllItems'];
@@ -75,11 +93,18 @@ class :class-name: extends ModelDefinition :admin-implements:{
         }
     }
 
+    /**
+     * Agrega un nuevo elemento a la tabla designada por el modelo
+     * @param array $data
+     * @throws \Exception
+     * @return mixed
+     */
     public function insertItem(array $data)
     {
-        extract($data);
+        $fields = [:insert-model-validate:];
 
-        if(:insert-model-validate:){
+        $val = Validations::validatePost($fields,$data);
+        if($val[0]){
             $query = $this->query->queryList[':table:']['insertItem'];
             $insert = array(
                 :insert-model-data:
@@ -92,10 +117,17 @@ class :class-name: extends ModelDefinition :admin-implements:{
                 throw new \Exception($e);
             }
         }else{
-            throw new \Exception("Los datos no son validos.");
+            throw new \Exception($val[1]);
         }
     }
 
+    /**
+     * Actualiza la informacion y campos especificados por $data en el elemnto con identificador $id
+     * @param int $id
+     * @param array $data
+     * @throws \Exception
+     * @return mixed
+     */
     public function updateItem($id, array $data)
     {
         $query = $this->query->queryList[':table:']['updateItem'];
@@ -127,6 +159,12 @@ class :class-name: extends ModelDefinition :admin-implements:{
         }
     }
 
+    /**
+     * Elimina un elemento con identificador $id de la tabla especificada en el modelo
+     * @param int $id
+     * @throws \Exception
+     * @return mixed
+     */
     public function deleteItem($id)
     {
         $query = $this->query->queryList[':table:']['deleteItem'];
@@ -143,6 +181,11 @@ class :class-name: extends ModelDefinition :admin-implements:{
         }
     }
 
+    /**
+     * Retorna el maximo identificador disponible en la tabla del modelo
+     * @throws \Exception
+     * @return int
+     */
     public function getLastItem()
     {
         $query = $this->query->queryList[':table:']['getLastItem'];

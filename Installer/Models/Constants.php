@@ -1,7 +1,9 @@
 <?php
+/**
+ * @author Eduardo Aguilar <dante.aguilar41@gmail.com>
+ */
 
 namespace CorePHP\Installer\Models;
-
 
 abstract class Constants
 {
@@ -13,6 +15,7 @@ abstract class Constants
     CONST MODEL_QUERY_FUNCTION = __DIR__ . "/../SuportFiles/modelQueryFunction.txt";
     CONST ADMIN_FUNCTIONS = __DIR__ . "/../SuportFiles/adminFunctions.txt";
     CONST QUERYMAP_CLASS = __DIR__ . "/../../Libraries/QueryMap.php";
+    CONST START_QUERYMAP = __DIR__ . "/../SuportFiles/startQueryMap.txt";
     CONST CONEXION_CLASS = __DIR__ . "/../../Core/Conexion.php";
 
     /**

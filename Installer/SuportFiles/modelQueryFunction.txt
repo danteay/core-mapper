@@ -1,4 +1,7 @@
-public function :table:Query()
+/**
+     * Arreglo de querys para el modelo :table:
+     */
+    public function :table:Query()
     {
         $this->queryList[':table:'] = array(
             "getItem" => "SELECT * FROM :table: WHERE :primary: = [[id]]",

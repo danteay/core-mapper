@@ -1,7 +1,9 @@
 <?php
+/**
+ * @author Eduardo Aguilar <dante.aguilar41@gmail.com>
+ */
 
 namespace CorePHP\Installer\Models;
-
 
 use CorePHP\Installer\Models\Mapper;
 use CorePHP\Installer\Models\Validations;
@@ -56,8 +58,20 @@ class ModelCreator extends Mapper
      */
     private function __init__()
     {
+        $this->cleanPreviusQuery();
+
         foreach(parent::getListTables() as $table){
             $this->createModel($table);
+        }
+    }
+
+    /**
+     * Elimina cualquier query anteriormente creado
+     */
+    private function cleanPreviusQuery()
+    {
+        if(file_exists(parent::QUERYMAP_CLASS)){
+            unlink(parent::QUERYMAP_CLASS);
         }
     }
 
@@ -182,38 +196,35 @@ class ModelCreator extends Mapper
      */
     private function createInsertModelValidates(array $fields)
     {
-        $validate = "";
-        $flag = true;
+        $validate = null;
 
         foreach($fields as $field){
-            if($flag){
-                $validate .= Validations::isPrimary($field[3]) ?
-                    (Validations::isAutoIncrement($field[5]) ?
-                        "" :
-                        (Validations::isNumeric($field[1]) ?
-                            "isset(\$$field[0]) && is_numeric(\$$field[0])" :
-                            "isset(\$$field[0]) && !empty(\$$field[0])"
-                        )
-                    ) :
+            $validate .= empty($validate) ?
+                (Validations::isPrimary($field[3]) ?
+                (Validations::isAutoIncrement($field[5]) ?
+                    "" :
                     (Validations::isNumeric($field[1]) ?
-                        "isset(\$$field[0]) && is_numeric(\$$field[0])" :
-                        "isset(\$$field[0]) && !empty(\$$field[0])"
-                    );
-                $flag = $validate != "" ? false : $flag;
-            }else{
-                $validate .= Validations::isPrimary($field[3]) ?
-                    (Validations::isAutoIncrement($field[5]) ?
-                        "" :
-                        (Validations::isNumeric($field[1]) ?
-                            " && isset(\$$field[0]) && is_numeric(\$$field[0])" :
-                            " && isset(\$$field[0]) && !empty(\$$field[0])"
-                        )
-                    ) :
+                        "['{$field[0]}','numeric']" :
+                        "['{$field[0]}','string']"
+                    )
+                ) :
+                (Validations::isNumeric($field[1]) ?
+                    "['{$field[0]}','numeric']" :
+                    "['{$field[0]}','string']"
+                )) :
+                (Validations::isPrimary($field[3]) ?
+                (Validations::isAutoIncrement($field[5]) ?
+                    "" :
                     (Validations::isNumeric($field[1]) ?
-                        " && isset(\$$field[0]) && is_numeric(\$$field[0])" :
-                        " && isset(\$$field[0]) && !empty(\$$field[0])"
-                    );
-            }
+                        ",['{$field[0]}','numeric']" :
+                        ",['{$field[0]}','string']"
+                    )
+                ) :
+                (Validations::isNumeric($field[1]) ?
+                    ",['{$field[0]}','numeric']" :
+                    ",['{$field[0]}','string']"
+                ));
+
         }
 
         return $validate;
@@ -257,7 +268,9 @@ class ModelCreator extends Mapper
      */
     private function createQueryFunctionModel($table, array $fields)
     {
-        $queryMapFile = file_get_contents(parent::QUERYMAP_CLASS);
+        $queryMapFile = file_exists(parent::QUERYMAP_CLASS) ? 
+            file_get_contents(parent::QUERYMAP_CLASS) : 
+            file_get_contents(parent::START_QUERYMAP);
 
         $queryFunction = $table == $this->adminTable ? file_get_contents(parent::ADMIN_QUERY_FUNCTION): file_get_contents(parent::MODEL_QUERY_FUNCTION);
         $queryFunction = str_replace(parent::TABLE_NAME, $table, $queryFunction);
