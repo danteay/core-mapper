@@ -12,7 +12,7 @@ class :class-name: extends ModelDefinition :admin-implements:{
 
     :model-fields:
 
-    public function __construct(&$conx = null)
+    public function __construct(Conexion &$conx = null)
     {
         :init-model-fields:
 
@@ -25,7 +25,7 @@ class :class-name: extends ModelDefinition :admin-implements:{
      * @throws \Exception
      * @return mixed
      */
-    protected function initConexion(&$conx)
+    protected function initConexion(Conexion &$conx)
     {
         if(empty($conx)){
             try{
