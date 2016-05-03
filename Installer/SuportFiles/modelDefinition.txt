@@ -25,7 +25,7 @@ class :class-name: extends ModelDefinition :admin-implements:{
      * @throws \Exception
      * @return mixed
      */
-    protected function initConexion(Conexion &$conx)
+    protected function initConexion(&$conx)
     {
         if(empty($conx)){
             try{

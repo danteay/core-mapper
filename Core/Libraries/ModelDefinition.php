@@ -27,7 +27,7 @@ abstract class ModelDefinition{
      * @param Conexion $conx
      * @return mixed
      */
-    abstract protected function initConexion(Conexion &$conx);
+    abstract protected function initConexion(&$conx);
 
     /**
      * Busca y carga un elemento basado en su ID
