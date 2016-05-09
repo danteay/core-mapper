@@ -2,7 +2,8 @@
 CorePHPMapper es una serie de scripts que te permiten abstraer de una base de datos, sus tablas y campos, trasformandolas en Clases PHP para su facil manipulacion mediante el patron DAO.
 
 #Datos de compativilidad
-* PHP >= 5.5
+* PHP >= 5.6
+* MySQL >= 5
 
 #Instalación
 
