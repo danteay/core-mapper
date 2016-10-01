@@ -2,10 +2,12 @@
 
 namespace CorePHP\Models;
 
-use CorePHP\Core\Libraries\ModelDefinition;
 :admin-use-class:
+
 use CorePHP\Core\Conexion;
 use CorePHP\Core\Utils\Validations;
+use CorePHP\Core\Collections\Collection;
+use CorePHP\Core\Libraries\ModelDefinition;
 use CorePHP\Libraries\QueryMap;
 
 class :class-name: extends ModelDefinition :admin-implements:{
@@ -21,6 +23,7 @@ class :class-name: extends ModelDefinition :admin-implements:{
 
     /**
      * Inizializa la conexion del modelo
+     * 
      * @param Conexion $conx
      * @throws \Exception
      * @return mixed
@@ -44,6 +47,7 @@ class :class-name: extends ModelDefinition :admin-implements:{
 
     /**
      * Busca y carga un elemento basado en su ID
+     * 
      * @param int $id
      * @throws \Exception
      * @return bool
@@ -63,9 +67,7 @@ class :class-name: extends ModelDefinition :admin-implements:{
         }
 
         if($result = $result->fetch_assoc()){
-            foreach($result as $key => $value){
-                $this->$key = $value;
-            }
+            self::autoSerialize($this, $result);
 
             return true;
         }else{
@@ -76,9 +78,10 @@ class :class-name: extends ModelDefinition :admin-implements:{
     :admin-functions:
 
     /**
-     * Carga la totalidad de elemtnos y los devuelve en una varia \mysqli_result
+     * Carga la totalidad de elemtnos y los devuelve como una clase Collection
+     * 
      * @throws \Exception
-     * @return \mysqli_result
+     * @return \CorePHP\Core\Collections\Collection < :class-name: >
      */
     public function getAllItems()
     {
@@ -87,7 +90,18 @@ class :class-name: extends ModelDefinition :admin-implements:{
         $this->conx->initializeQuery($query);
         try{
             $result = $this->conx->getRequest();
-            return $result;
+            
+            $array = [];
+
+            while ($row = $result->fetch_assoc()) {
+                $aux = new :class-name:($this->conx);
+
+                self::autoSerialize($aux, $row);
+
+                $array[] = $aux;
+            }
+
+            return new Collection($array);
         }catch(\Exception $e){
             throw new \Exception($e);
         }
@@ -97,6 +111,7 @@ class :class-name: extends ModelDefinition :admin-implements:{
 
     /**
      * Agrega un nuevo elemento a la tabla designada por el modelo
+     * 
      * @param array $data
      * @throws \Exception
      * @return mixed
@@ -125,6 +140,7 @@ class :class-name: extends ModelDefinition :admin-implements:{
 
     /**
      * Actualiza la informacion y campos especificados por $data en el elemnto con identificador $id
+     * 
      * @param int $id
      * @param array $data
      * @throws \Exception
@@ -163,6 +179,7 @@ class :class-name: extends ModelDefinition :admin-implements:{
 
     /**
      * Elimina un elemento con identificador $id de la tabla especificada en el modelo
+     * 
      * @param int $id
      * @throws \Exception
      * @return mixed
@@ -184,9 +201,10 @@ class :class-name: extends ModelDefinition :admin-implements:{
     }
 
     /**
-     * Retorna el maximo identificador disponible en la tabla del modelo
+     * Retorna un objeto de tipo :class-name: con el ultimo registro disponible
+     * 
      * @throws \Exception
-     * @return int
+     * @return \CorePHP\Models\:class-name:
      */
     public function getLastItem()
     {
@@ -196,9 +214,11 @@ class :class-name: extends ModelDefinition :admin-implements:{
 
         try{
             $result = $this->conx->getRequest();
-            $result = $result->fetch_object();
+            $result = $result->fetch_assoc();
 
-            return $result->last;
+            self::autoSerialize($this, $result);
+
+            return $this;
         }catch(\Exception $e){
             throw new \Exception($e);
         }

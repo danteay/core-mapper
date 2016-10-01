@@ -137,6 +137,7 @@ class ModelCreator extends Mapper
         foreach($keys as $value){
             $aux = str_replace(parent::UPPER_FKEY,ucfirst($value[0]),$function);
             $aux = str_replace(parent::TABLE_NAME,$table,$aux);
+            $aux = str_replace(parent::CLASS_NAME,ucfirst($table),$aux);
 
             $final .= $aux;
         }
