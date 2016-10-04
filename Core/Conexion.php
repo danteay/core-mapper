@@ -13,22 +13,22 @@ class Conexion
     /**
      * Servidor de la base de datos.
      */
-	const HOST = "localhost";
+	const HOST = ":host:";
 
     /**
      * Usuario del servidor.
      */
-	const USER = "root";
+	const USER = ":user:";
 
     /**
      * Contraseña de Usuario.
      */
-	const PASS = "root";
+	const PASS = ":pass:";
 
     /**
      * Nombre de la base de datos.
      */
-    const DBAS = "test";
+    const DBAS = ":dbas:";
 
     /**
      * @var \mysqli
