@@ -57,7 +57,7 @@ Definiciones:
 
     adminPassField\t(Opcional - Obligatorio si adminTable fue espesificado)
                   \tNombre del campo de la tabla definida en adminTable que
-                  \tfuncionara como password de administrador.";
+                  \tfuncionara como password de administrador.\n\n";
     }
 }
 

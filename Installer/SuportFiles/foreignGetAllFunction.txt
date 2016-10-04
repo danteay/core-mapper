@@ -1,7 +1,8 @@
 /**
-     * Carga la totalidad de elementos y los devuelve en una variable \mysqli_result
+     * Carga la totalidad de elementos y los devuelve en una variable de tipo Collection
+     *
      * @throws \Exception
-     * @return \mysqli_result
+     * @return \CorePHP\Core\Collections\Collection < :class-name: >
      */
     public function getAllItemsBy:fukey:($id)
     {
@@ -13,7 +14,18 @@
         $this->conx->initializeQuery($query,$insert);
         try{
             $result = $this->conx->getRequest();
-            return $result;
+            
+            $array = [];
+
+            while ($row = $result->fetch_assoc()) {
+                $aux = new :class-name:($this->conx);
+
+                self::autoSerialize($aux, $row);
+
+                $array[] = $aux;
+            }
+
+            return new Collection($array);
         }catch(\Exception $e){
             throw new \Exception($e);
         }

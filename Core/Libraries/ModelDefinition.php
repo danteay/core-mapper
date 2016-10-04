@@ -31,19 +31,22 @@ abstract class ModelDefinition{
 
     /**
      * Busca y carga un elemento basado en su ID
+     * 
      * @param int $id
      * @return bool
      */
     abstract public function getItem($id);
 
     /**
-     * Carga la totalidad de elemtnos y los devuelve en una varia \mysqli_result
-     * @return \mysqli_result
+     * Carga la totalidad de elementos y los devuelve en un objeto Collection
+     * 
+     * @return \CorePHP\Core\Collections\Collection
      */
     abstract public function getAllItems();
 
     /**
      * Agrega un nuevo elemento a la tabla designada por el modelo
+     * 
      * @param array $data
      * @return mixed
      */
@@ -51,6 +54,7 @@ abstract class ModelDefinition{
 
     /**
      * Actualiza la informacion y campos especificados por $data en el elemnto con identificador $id
+     * 
      * @param int $id
      * @param array $data
      * @return mixed
@@ -59,6 +63,7 @@ abstract class ModelDefinition{
 
     /**
      * Elimina un elemento con identificador $id de la tabla especificada en el modelo
+     * 
      * @param int $id
      * @return mixed
      */
@@ -66,8 +71,24 @@ abstract class ModelDefinition{
 
     /**
      * Retorna el maximo identificador disponible en la tabla del modelo
+     * 
      * @return int
      */
     abstract public function getLastItem();
+
+
+    /**
+     * Llena un Objecto de tipo ModelDefinition en base a un arreglo de datos
+     * 
+     * @param  ModelDefinition $object Modelo a llenar
+     * @param  array           $array  Arreglo de datos
+     * @return ModelDefinition         
+     */
+    protected static function autoSerialize(&$object, $array)
+    {
+        foreach ($array as $key => $value) {
+            $object->$key = $value;
+        }
+    }
 
 }
