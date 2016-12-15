@@ -1,0 +1,11 @@
+<?php
+
+namespace CorePHP\Models;
+
+use CorePHP\Core\Conexion;
+use CorePHP\Core\Abs\ModelDefinition;
+
+class :class-name: extends ModelDefinition
+{
+    :model-fields:
+}

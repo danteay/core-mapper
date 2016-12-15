@@ -1,0 +1,28 @@
+{
+  "name": "corephp/mapper",
+  "type": "library",
+  "description": "Nucleo del proyecto CorePHP",
+  "keywords": ["ORM","Mapper","PHP"],
+  "homepage": "https://github.com/danteay/CorePHPMapper",
+  "license": "GNU-3",
+  "authors": [
+    {
+      "name": "Eduardo Aguilar",
+      "email": "eduardo.aguilar41@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5"
+    "symfony/yaml": "3.2.*"
+  },
+  "bin": [
+    "bin/install",
+    "bin/mapper"
+  ],
+  "autoload": {
+    "psr-4": {
+      "CorePHP\\": ""
+    }
+  }
+
+}
