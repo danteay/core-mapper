@@ -77,15 +77,19 @@ abstract class Mapper extends Constants
     {
         $keys = array();
         $fields = $this->conx->query("
-            SELECT b.column_name
-            FROM information_schema.table_constraints a
-                JOIN information_schema.key_column_usage b
-                    ON a.table_schema = b.table_schema AND a.constraint_name = b.constraint_name
-                    WHERE a.table_schema=database() AND a.constraint_type='FOREIGN KEY' AND b.table_name='$table'
-                    ORDER BY b.table_name, b.constraint_name");
+            SELECT 
+                table_name AS 'origin_table', 
+                column_name AS 'origin_field', 
+                referenced_table_name AS 'reference_table', 
+                referenced_column_name AS 'reference_field' 
+                    FROM information_schema.key_column_usage 
+                        WHERE referenced_table_name IS NOT NULL 
+                        AND table_name = '{$table}' 
+                        AND table_schema = '{$this->dbas}'
+        ");
 
         if (empty($this->conx->error)) {
-            while ($field = $fields->fetch_array(MYSQLI_NUM)) {
+            while ($field = $fields->fetch_object()) {
                 $keys[] = $field;
             }
             return $keys;

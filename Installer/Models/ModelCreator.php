@@ -5,7 +5,6 @@
 
 namespace CorePHP\Installer\Models;
 
-use CorePHP\Exceptions\CorePHPBaseException;
 use Symfony\Component\Yaml\Yaml;
 
 class ModelCreator extends Mapper
@@ -62,16 +61,17 @@ class ModelCreator extends Mapper
      * Generacion de los Modelos con respecto a la configuracion de las tablas de la base de datos
      *
      * @param string $table
-     * @throws CorePHPBaseException
      * @throws \Exception
      */
     public function createModel($table)
     {
         $modelFile = file_get_contents(parent::MODEL_DEFINITION);
-        $fields = parent::getListFields($table);
+        $fields = $this->getListFields($table);
 
         $modelFile = str_replace(parent::MODEL_FIELDS_KEY, $this->createModelFields($fields), $modelFile);
         $modelFile = str_replace(parent::CLASS_NAME, ucfirst($table), $modelFile);
+
+        $this->createYamlConfigTable($table, $fields);
 
         file_put_contents(__DIR__ . "/../../Models/" .ucfirst($table).".php", $modelFile);
     }
@@ -113,13 +113,40 @@ class ModelCreator extends Mapper
             'fields' => []
         );
 
+        $foreign_keys = $this->getForeignKeys($table);
+
         foreach ($fields as $field) {
+            $flag = false;
+            $reference = null;
+
+            foreach ($foreign_keys as $key) {
+                if ($field[0] == $key->origin_field) {
+                    $flag = true;
+                    $reference = $key;
+                    break;
+                }
+            }
+
             $config['fields'][] = array(
                 'name' => $field[0],
                 'type' => Validations::isNumeric($field) ? 'numeric' : 'string',
                 'primary' => Validations::isPrimary($field),
-                'nullable' => Validations::isNullable($field)
+                'nullable' => Validations::isNullable($field),
+                'is_fireing' => $flag,
+                'references' => $flag ? [
+                    'table' => $reference->reference_table,
+                    'model' => ucfirst($reference->reference_table),
+                    'field' => $reference->reference_field
+                ] : null
             );
         }
+
+        $yaml = Yaml::dump($config);
+
+        if (!is_dir(__DIR__ . '/../../config/migrate')) {
+            mkdir(__DIR__ . '/../../config/migrate');
+        }
+
+        file_put_contents(__DIR__ . '/../../config/migrate/' . $config['model'] . '.yml', $yaml);
     }
 }
