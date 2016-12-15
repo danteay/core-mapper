@@ -35,7 +35,7 @@ class Install
         echo "### Ayuda de instalacion\n\n";
         echo "La instalacion de este sistema require el paso de parametros
 de una manera especifica en el siguiente orden:\n
-host dbas user pass adminTable=null adminUserField=null adminPassField=null\n
+host dbas user pass\n
 Definiciones:
     host\t\tServidor donde se encuentra la base de datos.
 
@@ -43,18 +43,7 @@ Definiciones:
     
     user\t\tNom de usuario de la base de datos
 
-    pass\t\tPassword de la base de datos.
-
-    adminTable\t\t(Opcional) Define una tabla para iplementar la interface
-              \t\tde administrador.
-
-    adminUserField\t(Opcional - Obligatorio si adminTable fue espesificado)
-                  \tNombre del campo de la tabla definida en adminTable que
-                  \tfuncionara como nombre administrador.
-
-    adminPassField\t(Opcional - Obligatorio si adminTable fue espesificado)
-                  \tNombre del campo de la tabla definida en adminTable que
-                  \tfuncionara como password de administrador.\n\n";
+    pass\t\tPassword de la base de datos.\n\n";
     }
 }
 
