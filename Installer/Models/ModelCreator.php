@@ -132,7 +132,7 @@ class ModelCreator extends Mapper
                 'type' => Validations::isNumeric($field) ? 'numeric' : 'string',
                 'primary' => Validations::isPrimary($field),
                 'nullable' => Validations::isNullable($field),
-                'is_fireing' => $flag,
+                'is_foreing' => $flag,
                 'references' => $flag ? [
                     'table' => $reference->reference_table,
                     'model' => ucfirst($reference->reference_table),
@@ -141,7 +141,7 @@ class ModelCreator extends Mapper
             );
         }
 
-        $yaml = Yaml::dump($config);
+        $yaml = Yaml::dump($config, 2);
 
         if (!is_dir(__DIR__ . '/../../config/migrate')) {
             mkdir(__DIR__ . '/../../config/migrate');

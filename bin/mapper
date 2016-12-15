@@ -1,2 +1,2 @@
 #!/bin/sh
-php ./../corephp/mapper/Installer/Mapper.php "$@"
+php ../corephp/mapper/Installer/Mapper.php "$@"
