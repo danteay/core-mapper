@@ -54,7 +54,7 @@ class ModelCreator extends Mapper
         $config['database']['user'] = $user;
         $config['database']['pass'] = $pass;
 
-        file_put_contents(__DIR__ . '/../../config/config.yml', Yaml::dump($config, 2));
+        file_put_contents(__DIR__ . '/../../config/config.yml', Yaml::dump($config, 4));
     }
 
     /**
@@ -141,7 +141,7 @@ class ModelCreator extends Mapper
             );
         }
 
-        $yaml = Yaml::dump($config, 2);
+        $yaml = Yaml::dump($config, 4);
 
         if (!is_dir(__DIR__ . '/../../config/migrate')) {
             mkdir(__DIR__ . '/../../config/migrate');

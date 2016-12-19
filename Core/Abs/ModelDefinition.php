@@ -31,11 +31,4 @@ abstract class ModelDefinition
 
     }
 
-
-    public function __call($name, $arguments)
-    {
-        echo "\nLlamando a $name\n";
-        var_dump($arguments);
-    }
-
 }
