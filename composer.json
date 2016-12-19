@@ -17,7 +17,8 @@
   },
   "bin": [
     "bin/install",
-    "bin/mapper"
+    "bin/mapper",
+    "bin/install_corephp.php"
   ],
   "autoload": {
     "psr-4": {
